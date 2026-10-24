@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SoulVetor — Guia do Jogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1fb;--surf:#fff;--ink:#241a3d;--mute:#6b6085;--line:#ddd5f0;--a:#6c4ad6;--b:#e0508a;--c:#1c9c8a;--soft:#ece6fb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120d24;--surf:#1d1639;--ink:#f0eaff;--mute:#a89fc8;--line:#352b5e;--a:#9b82ff;--b:#ff7aab;--c:#4fd6bf;--soft:#2a2150}}
+:root[data-theme="dark"]{--bg:#120d24;--surf:#1d1639;--ink:#f0eaff;--mute:#a89fc8;--line:#352b5e;--a:#9b82ff;--b:#ff7aab;--c:#4fd6bf;--soft:#2a2150}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Nunito,system-ui,sans-serif}
+.px{font-family:"Press Start 2P",monospace;line-height:1.5}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surf);border-bottom:2px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px}
+nav a{white-space:nowrap;color:var(--mute);text-decoration:none;font-weight:800;font-size:14px;padding:6px 12px;border-radius:99px}
+nav a:hover,nav a.on{background:var(--soft);color:var(--a)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surf);z-index:10}
+header{text-align:center;padding:56px 20px 40px;background:radial-gradient(circle at 50% 0,var(--soft),transparent 70%)}
+header h1{font-size:clamp(22px,6vw,40px);margin:12px 0;color:var(--a)}
+header p{max-width:620px;margin:0 auto;color:var(--mute)}
+.hero{width:128px;height:128px;image-rendering:pixelated;animation:fl 2.4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.tag{background:var(--surf);border:2px solid var(--line);border-radius:99px;padding:2px 14px;font-size:13px;font-weight:800}
+main{max-width:860px;margin:0 auto;padding:0 16px 60px}
+section{margin-top:56px}
+h2{font-size:clamp(14px,3.6vw,20px);color:var(--b);margin:0 0 8px}
+.lead{color:var(--mute);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--surf);border:2px solid var(--line);border-radius:16px;padding:18px}
+.card h3{margin:0 0 4px;font-size:17px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.ic{font-size:28px}
+.st{display:inline-block;font-size:12px;font-weight:800;border-radius:99px;padding:1px 10px;margin-bottom:6px}
+.ok{background:#1c9c8a33;color:var(--c)}.wip{background:#e0508a33;color:var(--b)}.idea{background:var(--soft);color:var(--a)}
+button{font:inherit;font-weight:800;cursor:pointer;border:2px solid var(--a);background:var(--a);color:#fff;border-radius:12px;padding:8px 16px}
+button.alt{background:transparent;color:var(--a)}
+button:disabled{opacity:.45;cursor:default}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{background:transparent;color:var(--a)}
+.tabs button.on{background:var(--a);color:#fff}
+.demo{background:var(--surf);border:2px solid var(--line);border-radius:16px;padding:18px}
+.flow{display:flex;flex-direction:column;gap:0;margin-top:20px}
+.step{display:flex;gap:14px;cursor:pointer}
+.step .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--a);display:grid;place-items:center;font-weight:800;margin-top:6px}
+.step .t{flex:1;border-left:3px solid var(--line);padding:6px 0 14px 16px;margin-left:-31px;padding-left:44px}
+.step b{display:block}
+.step .d{display:none;color:var(--mute);font-size:15px}
+.step.open .d{display:block}.step.open .n{background:var(--a);color:#fff}
+.bubble{background:var(--soft);border-radius:14px;padding:14px 16px;margin:10px 0;min-height:60px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.scene{display:flex;align-items:flex-end;gap:10px;height:230px;padding:10px;border-radius:12px;background:linear-gradient(var(--soft),var(--surf));border-bottom:6px solid var(--a);overflow:hidden}
+.scene img{image-rendering:pixelated;width:64px;height:64px}
+.sq{background:color-mix(in srgb,var(--c) 35%,transparent);border:3px solid var(--c);transition:all .25s}
+input[type=range]{width:100%;accent-color:var(--a)}
+.f{font:700 20px/1.3 "Courier New",monospace;color:var(--a)}
+.bar{height:22px;border-radius:99px;background:var(--soft);overflow:hidden;border:2px solid var(--line)}
+.bar i{display:block;height:100%;width:30%;background:linear-gradient(90deg,var(--a),var(--b));transition:width 1.2s}
+.chk{list-style:none;padding:0;margin:0}
+.chk li{padding:8px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px;cursor:pointer}
+.chk li.done{text-decoration:line-through;color:var(--mute)}
+footer{text-align:center;color:var(--mute);font-size:14px;padding:30px 16px}
+.keys kbd{background:var(--soft);border:2px solid var(--line);border-bottom-width:4px;border-radius:8px;padding:0 9px;font-weight:800}
+</style>
+</head>
+<body>
+<header>
+<img class="hero" src="data:image/gif;base64,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" alt="Protagonista de SoulVetor em pixel art">
+<h1 class="px">SoulVetor</h1>
+<p>Um jogo de plataforma educativo sobre <b>geometria plana</b>, inspirado em <i>Celeste</i>, onde a protagonista usa formas geométricas e matemática para atravessar o mundo.</p>
+<div class="tags"><span class="tag">🎮 Plataforma 2D</span><span class="tag">📐 Geometria plana</span><span class="tag">🛠️ Em desenvolvimento</span><span class="tag">Idealizado por Bruno Gomes, Rangel Leivy, <br>Guilherme Hermando &amp; Gabriela Jesus</span></div>
+</header>
+<nav id="nav">
+<a href="#visao">Visão geral</a><a href="#sabios">Sábios</a><a href="#constructos">Constructos</a><a href="#medida">Medida</a><a href="#energia">Energia mental</a><a href="#roadmap">Roadmap</a>
+</nav>
+<main>
+
+<section id="visao">
+<h2 class="px">Visão geral</h2>
+<p class="lead">Aqui a matemática não é só uma prova no fim da fase: ela é a ferramenta que a jogadora usa para se mover, se defender e interagir com o mundo.</p>
+<div class="grid">
+<div class="card"><div class="ic">🧙</div><h3>Sábios</h3><p>NPCs que lançam desafios matemáticos e entregam prêmios. Também fazem parte da história.</p></div>
+<div class="card"><div class="ic">🔷</div><h3>Constructos</h3><p>Quadrados, triângulos e outras formas criadas pela protagonista, com tamanho definido por fórmulas.</p></div>
+<div class="card"><div class="ic">🧠</div><h3>Energia Mental</h3><p>A “mana” do universo. É ela que dá vida aos constructos.</p></div>
+<div class="card"><div class="ic">👁️</div><h3>Visão especial</h3><p>A protagonista enxerga o mundo como um plano cartesiano.</p></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>🎯 Objetivo do projeto</h3><p>Primeiro, uma versão <b>Beta/DEMO</b> jogável da 1ª parte do jogo, suficiente para apresentar a proposta (projeto A3). Se o projeto for além, pode virar um jogo completo e pessoal.</p></div>
+</section>
+
+<section id="sabios">
+<h2 class="px">1. Os Sábios</h2>
+<p class="lead">NPCs espalhados pelo mapa, principalmente em vilas. Cada um tem nome, personalidade e impacto na história, como <i>“Euclides, O Sábio do Fogo”</i>. Cada sábio ensina uma fórmula diferente.</p>
+
+<div class="demo">
+<b>▶ Experimente a conversa com um sábio</b> <span style="color:var(--mute);font-size:14px">(exemplo ilustrativo)</span>
+<div class="bubble" id="sbub">Clique em “Aproximar” para chegar perto do sábio.</div>
+<div class="opts" id="sopt"><button onclick="sage(0)">Aproximar</button></div>
+</div>
+
+<div class="flow" id="flow">
+<div class="step open"><div class="n">1</div><div class="t"><b>Encontro</b><span class="d">A jogadora chega a uma vila ou local aleatório e encontra um sábio. Ao chegar perto, ele fala por um balão de conversa acima da cabeça, convidando-a para um desafio.</span></div></div>
+<div class="step"><div class="n">2</div><div class="t"><b>Pop-up de tutorial (só na 1ª vez)</b><span class="d">Na primeira interação com qualquer sábio, uma janela explica quem são os sábios e o que fazem. Depois, aparece a escolha: aceitar ou recusar o desafio.</span></div></div>
+<div class="step"><div class="n">3</div><div class="t"><b>Recusar</b><span class="d">O sábio chama a atenção dela sempre que ela passa, perguntando “Já está pronta para o desafio?”. Apertando <kbd>E</kbd> por perto, ela volta à escolha.</span></div></div>
+<div class="step"><div class="n">4</div><div class="t"><b>Aceitar</b><span class="d">Um pop-up explica a fórmula do sábio e como usá-la (uma vez por sábio). Depois abre a tela do desafio: enunciado, fórmulas abaixo dele, alternativas (3 a 5) no canto inferior esquerdo e um quadro em branco para fazer contas no inferior direito.</span></div></div>
+<div class="step"><div class="n">5</div><div class="t"><b>Duas chances</b><span class="d">A jogadora tem duas tentativas. Errando a segunda, a janela fecha e o sábio entra em cooldown de 1 a 3 minutos, dizendo “Tente outra vez mais tarde.” a cada aproximação.</span></div></div>
+<div class="step"><div class="n">6</div><div class="t"><b>Prêmio</b><span class="d">Acertando, ela ganha quase sempre um constructo, e às vezes também roupas, moedas, experiência ou novos dashes. O sábio parabeniza, explica o uso do constructo e um pop-up mostra um gif de como usá-lo.</span></div></div>
+<div class="step"><div class="n">7</div><div class="t"><b>Desafios extras</b><span class="d">Ela pode voltar quando quiser. Das próximas vezes os desafios são aleatórios (dentro da lógica do sábio) e rendem só moedas e experiência, pois são extras fora da história principal.</span></div></div>
+</div>
+</section>
+
+<section id="constructos">
+<h2 class="px">2. Constructos</h2>
+<p class="lead">Formas geométricas que a protagonista cria para passar por obstáculos, defender e refletir ataques, e até construir casas em minijogos nas vilas. Elas são obtidas com os sábios ou em escrituras antigas.</p>
+<div class="tabs" id="ctabs">
+<button class="on" onclick="shape('q')">🟦 Quadrado</button><button onclick="shape('r')">▭ Retângulo</button><button onclick="shape('t')">🔺 Triângulo</button><button onclick="shape('c')">⚪ Círculo</button>
+</div>
+<div class="demo">
+<div class="f" id="sf"></div>
+<p id="sd" style="margin:4px 0 12px;color:var(--mute)"></p>
+<div id="sl"></div>
+<div class="f" id="sr" style="margin:10px 0"></div>
+<svg id="sv" viewBox="0 0 220 130" width="100%" style="max-height:170px;background:var(--soft);border-radius:12px"></svg>
+<p style="color:var(--mute);font-size:13px;margin:6px 0 0">Valores de 1 a 5 usados apenas para demonstração.</p>
+</div>
+
+<div class="grid" style="margin-top:14px">
+<div class="card"><span class="st ok">Definido</span><h3>Quadrado — barreira</h3><p>Bloqueio de curta duração que aguenta até <b>2 golpes</b> e serve para passar obstáculos. Sofre gravidade, pode ser criado várias vezes, pode ser carregado e some em <b>30 s</b>. Área máxima: <b>25 m²</b>.</p></div>
+<div class="card"><span class="st idea">Planejado</span><h3>Retângulo — plataforma/rampa</h3><p>Plataforma longa ou rampa.</p></div>
+<div class="card"><span class="st idea">Planejado</span><h3>Triângulo — impulso/refletor</h3><p>Rampa de impulso e refletor angular.</p></div>
+<div class="card"><span class="st idea">Planejado</span><h3>Círculo — escudo</h3><p>Escudo omnidirecional.</p></div>
+</div>
+
+<div class="demo" style="margin-top:14px">
+<b>⌨️ Como criar um quadrado</b>
+<ol style="margin:8px 0 0;padding-left:20px">
+<li>Aperte <span class="keys"><kbd>T</kbd></span> para alternar entre constructos (“quadrado selecionado”).</li>
+<li>Aperte <span class="keys"><kbd>G</kbd></span> para abrir o mini-menu de tamanho.</li>
+<li>Clique em <b>L²</b> na fórmula e escolha o lado de 1 a 5. O resultado de <b>A</b> aparece abaixo.</li>
+<li>Volte ao jogo e aperte <span class="keys"><kbd>F</kbd></span>: o quadrado surge na frente da personagem.</li>
+</ol>
+</div>
+</section>
+
+<section id="medida">
+<h2 class="px">3. De metros para pixels</h2>
+<p class="lead">Para o tamanho escolhido na fórmula virar algo visível no jogo, precisamos de uma medida oficial. Ela é baseada na protagonista, que tem cerca de <b>22 px de altura</b> e <b>13 px de largura</b>. O constructo mínimo deve ter altura parecida ou menor que a dela.</p>
+<div class="demo">
+<div class="f">20 px = 1 m</div>
+<label>Lado do quadrado (L): <b id="ml">2</b> m → <b id="mp">40</b> px</label>
+<input type="range" min="1" max="5" value="2" id="mr">
+<div class="scene" id="msc"><img id="mimg" src="data:image/gif;base64,R0lGODlhIAAgAHcAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCgAAACwAAAAAIAAgAIQAAAAAAABOQThhSjZsUz00Qk5KemxeiHLprzr/yFh8o4j1zaz/5aK63//Uxsf/5tHn4+Pr9v////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFqCAgjmRpnmiqrmzrvnAsz3Rt33jOBoE+BhJJTweEDHM84fEWgASDS1rz+YzGmk4qxCjNZiVb7gxILVtd04VkwVaLZQFHcHFgHySOMzr76D/eYw4QBwoHBQd5NQEKBhAKCgwFCQp6O4SPjwkFDIWVKgEGjwejCJsHDJ4pAQyXCggNEZyoUgwGBwYIAwQIrqmfDAmvEcMIvisBbDzJxp8CBDzOzM0L0NQsIQAh+QQJCgAAACwAAAAAIAAgAIQAAAAAAABOQThhSjZsUz00Qk5KemxeiHLprzr/yFh8o4j1zaz/5aK63//Uxsf/5tHn4+Pr9v////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFniAgjmRpnmiqrmzrvnAsz3Rt33iuy0GwiwGJxKcLQoi53hB5C0CEQibNCYVKY85nFXKcarUSbncWrJqvLupCclgsDmF0K+AQuu8Sh3yuffgfY2R0EAoKDAUJelMHhYQKCQUMCj1kBoUHmAiRBwx7KgEMjIUIDRGSnVMMBgcGCAMECAoIniugCaQRubNNbj29tCwBAgQ9w8DBAgvFyiwhACH5BAUKAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWlICCOZGmeaKqubOu+cCzPdG3feK7LQbCLAYnEpwtCiLneEHkLQIRCJs0JhUpjzmcVcpxqtRJudxasmq8u6kKyaK/HPIdwcWgfJA50WvvoP+BkDhAHCgcFB3k1AQoGEAoKDAUJCnosAYSPjwkFDIWVKgEGjwekCJwHDJ8pAQyYCggNEZ2pUwwGBwYIAwQIr6qgDAmwEcQIvysBAgQ9ysfIAgvM0SwhACH5BAkKAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWqICCOZGmeaKqubOu+cCzPdG3feK7LQbCLAYnEpwtCiLneEHkLQIRCJs0JhUpjzmcVcpxqtRJudxasmq8u6kKyaK/HPIdwcWgfJA50WvvoP+A8AQ4QCgcHBQd5UwoGCoQKDAUJCj08BwqYmQkFDJgHeikBjYWGCgichQygKAEMl5kIDRGdkKusDAYHBggDAwQImAi2twmxEccRCMI1PQIEzc/DKwECC83WLCEAIfkECQoAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABa8gII5kaZ5oqq5s675wLM90bd94zgaBPgYSSU8HhAxzPOHxFoAEg0ta8/mMxppOKsQozWYlW+4MSC1bXdOFZMFWi2UBR3BxYB8kjjM6++g/3mMOEAqEBQp5NQGEgwcMBQwKejsKBoSEjgmEkikBB5aWCY+EB5snAZUKB6oKCKKNpSYBDJ6WCA0RkAoMsLEMBgcGCAMDBAiECLy9CbYRzREIyIkBAgQ81DxMAgvW2ywhACH5BAkKAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWuICCOZGmeaKqubOu+cCzPdG3feM4GgT4GEklPB4QMczzh8RaABINLWvP5jMaaTirEKM1mJVvuDEgtW13ThWTBVotlAUdwcWAfJI4zOvvoP95wcRAKBwcFB3lSCgYKgwoMBQkKPHAHCpeYCQUMlwd6KQGMhIUKCJuEDJ8oAQyWmAgNEZyPqqsMBgcGCAMDBAiXCLW2CbARxhEIwTU8bMwLlDYBAgQ808I7As/SzywhACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWnICCOZGmeaKqubOu+cCzPdG3feK7DQbCLAYnE9wtCiLreEHkLQIRCJs0JhUpjzmcVcpxqtRJudxasmq8u6kKyaK/H2IBDuDi0DxIHeiV3+IUPgQ9wWA4KhwoMBwV+e3wHiIcJBQkKPWQGhwebCAUMCgeOKgGKiAgNngcMoqMMBgcGCAMRn6s1pAmnEQQICgisfAEEAQsREb9NCwI9AsPALJcAAQILrCEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZwgII5kaZ5oqq5s675wLM90bd94ru98HgS9gEQC5AkhP10AMhwWbctm8zlbMqUQJC0quXazVJhQSg6/ogvJYp3Wyn6O4eKwPkgcZlbAwY9LHoAPbm8OCoYKDAcFfHl6B4eGCQUJCklvBoYHmggFDAoHjSsBiYcIDZ0HDKGiDAYHBggDEZ6qNaMJphEECAoIqy0BAsEREb4+wQu/IiEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZggII5kaZ5oqq5s675wLM90bd94ru98HgS9gEQC5AkhP10AMhwWbctm8zlbMqUQJC0quXazVJhQSg6/ogvJYp3WygIOx3BxWB8kDjMLHpdLHoAPbm8KhYUMBQlxensHhoUJBQwKSW8GhQeZCJIHDIwrAQyOhQgNEZOeWwwGBwYIAwQICgifewwJpRG6tDc/AgQ/lb0CC7UlIQAh+QQJBwAAACwAAAAAIAAgAIQAAAAAAABOQThhSjZsUz00Qk5KemxeiHLprzr/yFh8o4j1zaz/5aK63//Uxsf/5tHn4+Pr9v////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFpSAgjmRpnmiqrmzrvnAsz3Rt33iuw0GwiwGJxPcLQoi63hB5C0CEQibNCYVKY85nFXKcarUSbncWrJqvLupCsmivx9iAQ7g4tA8SB3old/iFD4EPcFgOCocKDAUJfnssAQoGiAkFDAo9ZAeIBwcIlQcMjioBkgqaCA0RlqFkDJqRCAMECAoIoqMMBp2pERG2NgEMCT09AgS3fMZEAQILyKPNSMQrIQAh+QQJBwAAACwAAAAAIAAgAIQAAAAAAABOQThhSjZsUz00Qk5KemxeiHLprzr/yFh8o4j1zaz/5aK63//Uxsf/5tHn4+Pr9v////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFniAgjmRpnmiqrmzrvnAsz3Rt33iuv0GwiwGJxPcLQnq6AEQoJNqUTKZzplxGIUcaVGLlYqewYPQK5i0XkoUa7Si3eg7h4vB4HLKygGNvrdfbWnsOCgeEBQeAWgqLiwwFCQpub4WMCgkFDISSKwEMlAoIDRGZDJucDAYHBggDBAigpqcJoRG1CEg1AWo9AQICC7EqvQROvMEovcBFuDEhACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWlICCOZGmeaKqubOu+cCzPdG3feK4GgT4GEknPBwBChjqeEHkLQIJBJs0JhUpjzmcVcpxqtRJudwasmq8u6kKyaK/H2IAjuDi0DxIHeiV3+IMPgQ9wWA4KhwoMBQl+e3wHiIcJBQwKPGQGhwebCJQHDI47DJCHCA0RlaBTDAYHBggDBAgKCKF8DAmmEbu1NTxtPL+XZAsEAkgBAgS2KcFMyQvMcbYhACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoICCOZGmeaKqubOu+cCzPdG3feK7DQbCLAYnE9wtCiLreEHkLQIRCJs0JhUpjzmcVcpxqtRJudxasmq8u6kKyaK/H2IBDuDi0DxIHeiV3+IUPgQ9wWA4KhwoHBQd+eywBCgaIDAUJCj1kB4iHCQUMiY4qAZKJBwcIngcMoSkBDJqHCA0Rn6tTDAYHBggDBAgKCKytrgmyEcfBNQELBD09As1NTAECC6whACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWkICCOZGmeaKqubOu+cCzPdG3feK7DQbCLAYnE9wtCiLreEHkLQIRCJs0JhUpjzmcVcpxqtRJudxasmq+tnkOyYC/eYfQq4KgLF4f3QeKQz+trEg+DD2MyAQoGCosMBQl1fioBB4uVCQUMCj1kigoHnwiYBwyRKQEMlIsIDRGZpFMMBgcGCAMECAoIpZIMCasRwLpNAgQ+C7tpC8UBxMgsm8zHLCEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZkgII5kaZ5oqq5s675wLM90bd94ru98HgS9gEQC5AkhP10AMhwWbctm8zlbMqUQJC0quXazVJhQSg6/ogvJYp3Wyn6O4eKwPkgcZlbAwY9LHoAPbm8OCoYKDAUJfHl6B4eGCQUMCklvBoYHmgiTBwyNKwEMj4YIDRGUn1sMBgcGCAMECAoIoHoMCaYRu7U4AQQLAQK2MT/DLiEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABaUgII5kaZ5oqq5s675wLM90bd94ru91EPCAgETy4wkhPl0AMhwWbctm8zlbMqUQJC0quXazVJhQSg6/ogvJYp3WynyO4eKwPkgcZlbAwY9LHoAPbm98CgeGBQd8eS0BCgYKkQwFCQpJb4eRkQkFDIaMKwGQhgcHCJ0HDKAqAQyZCggNEZ6qWwwGBwYIAwQIsKuhDAmxEcUIwHoBAgEEC8iNAsuXLCEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABaggII5kaZ5oqq5s675wLM90bd+4GAQ5GUgSXk8ngQh7u+DxFoAAgUta8/mMxppOKsQozWaLW6vrR9WKW9OFZMFWO86rnQO4ODweB64s4Ohn73dvUn0OCgeGBQeCUgqNjQwFCQpwcYeOCgkFDIaUKQEGjQeiCJoHDJ0oAQyWCggNEZunUgwGBwYIAwQIraieDAmuEcIIvSo7OwQLxXEEAsc5AQQEy2g7MiEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABakgII5kaZ5oqq5s675wLM90bd94rgaBPgYSSc8HAEKGOp4QeQtAgkEmzQmFSmPOZxVynGq1Em53Bqyary7qQrJor8fYgCO4OLQPEgd6JXf4gw+BD3BYDgqHCgcFB357LAEKBogMBQkKPGQHiIcJBQyJjjuSiQcHCJ4HDKEpAQyahwgNEZ+qUwwGBwYIAwQICgirOwwJsRHGwE08PAQCwY8EBMsLznyYRc4hACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWeICCOZGmeaKqubOu+cCzPdG3feK6/QbCLAYnE9wtCeroARCgk2pRMpnOmXEYhRxpUYuVip7Bg9ArmLReShRrtKLd6DuHi8HgcsrKAY2+t19taew4KB4QFB4BaCouLDAUJCm5vhYwKCQUMhJIrAQyUCggNEZkMm5wMBgcGCAMECKCmpwmhEbUISDUBaj0BAgILsSq9BE68wSi9wEW4MSEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABaUgII5kaZ5oqq5s675wLM90bd94rgaBPgYSSc8HAEKGOp4QeQtAgkEmzQmFSmPOZxVynGq1Em53Bqyary7qQrJor8fYgCO4OLQPEgd6JXf4gw+BD3BYDgqHCgwFCX57fAeIhwkFDAo8ZAaHB5sIlAcMjjsMkIcIDRGVoFMMBgcGCAMECAoIoXwMCaYRu7U1PG08v5dkCwQCSAECBLYpwUzJC8xxtiEAIfkECQcAAAAsAAAAACAAIACEAAAAAAAATkE4YUo2bFM9NEJOSnpsXohy6a86/8hYfKOI9c2s/+Wiut//1MbH/+bR5+Pj6/b/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZsgII5kaZ5oqq5s675wLM90bd94ru/8Hfy8gGT4A+J+kCHxmFQuawFIUykN0KLDqRRijRWdYEn3FXCYkwvJYp3mypDKxWF9kDjG5HPzwX+4vQcKgoMJBQxmeC4BBoKBCgcIhgdGMAEMjoIIDREMCgyJigwGBwYGCAMECAoIoKEJCJoRsqxQAWtFAgStigsEAl0BAgu7LUV4RT0vIQAh+QQJBwAAACwAAAAAIAAgAIQAAAAAAABOQThhSjZsUz00Qk5KemxeiHLprzr/yFh8o4j1zaz/5aK63//Uxsf/5tHn4+Pr9v////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFmCAgjmRpnmiqrmzrvnAsz3Rt33iu73yvB8BgABeQGI+S4Q0IQSZtAUgTKVXKosapRAqxuoROp5cVcJgdzYVkwVZ3Y0Ht4sA+SBzjVhk9ffgfb3AHCoSFCQUMZnlkDIOFCAiIB0AzAQwGBwYGCA0RDAgKi3oMCZANAwQAEQiiZAFsEbERC5SVCwQCQgECBK0rQiS7tD1BPi0hACH5BAkHAAAALAAAAAAgACAAhAAAAAAAAE5BOGFKNmxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWfICCOZGmeaKqubOu+cCzPdG3feK7v/B38vIBk+APifpAh8ZhULmsBSFMpDdCiw6kUYo0VnWBJ9xVwmJMLyWKd5sqQysVhfZA4xuRz88F/uGE/BwqDhAkFDGZ4LAEGgwePgwgNhwdGLgEMgoQKkhGHCgyKiwwGBwYGCAOqBAicoqMJCJ0RtBEIry1Fa0UCBLi5CwQCXQECC7+LRSTKPS4hACH5BAkKAAAALAAAAAAgACAAhAAAAAAAAE5BOGxTPTRCTkp6bF6IcumvOv/IWHyjiPXNrP/lorrf/9TGx//m0efj4+v2/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWTICCOZGmeaKqubOu+cCzPdG3feK4GOhk8vJ7oF9QFApGj8RFpJnE/p7M4+zGlD2ANmb12qTGkVAqGiRURhVqhpYnTBrWhUTY3HXh83cxMGAhzey9WCQgECAmCLQEGCQ8IDBAQCg6KKwEFCZoIkpSWOwuNBZAMSjYBCwWjAgOfiweQkgeuLEcBaqy0iwECCroutiohADs=" alt="Protagonista"><div class="sq" id="msq"></div></div>
+<p style="color:var(--mute);font-size:13px;margin:6px 0 0">Comparação em escala 2×: protagonista e constructo.</p>
+</div>
+</section>
+
+<section id="energia">
+<h2 class="px">4. Energia Mental (EM)</h2>
+<p class="lead">É a “mana” do universo e dá vida aos constructos. O gasto por tamanho ainda será definido; por enquanto, cada constructo tem apenas um tamanho máximo. Para recuperar EM, a jogadora precisa descansar. As opções em avaliação:</p>
+<div class="demo">
+<div class="bar"><i id="eb"></i></div>
+<div class="opts">
+<button class="alt" onclick="em('Ficar parado por um tempo')">🧍 Ficar parada</button>
+<button class="alt" onclick="em('Sentar em um banco')">🪑 Sentar no banco</button>
+<button class="alt" onclick="em('Dormir')">😴 Dormir</button>
+<button class="alt" onclick="em('Tomar um energético')">🥤 Energético</button>
+</div>
+<p id="et" style="color:var(--mute);margin:10px 0 0">Escolha uma forma de recuperar.</p>
+</div>
+</section>
+
+<section id="roadmap">
+<h2 class="px">Ideias e próximos passos</h2>
+<div class="grid">
+<div class="card"><span class="st wip">Em andamento</span><h3>Mecânicas click-point e NPCs</h3><p>Ideia da Gabriela para ampliar o jogo.</p></div>
+<div class="card"><span class="st idea">Ideia</span><h3>Visão especial</h3><p>A personagem vê o plano cartesiano como uma habilidade.</p></div>
+<div class="card"><span class="st idea">Ideia</span><h3>Hipotenusa</h3><p>Uma parte envolvendo hipotenusa, mas antes é preciso definir as formas, tamanhos e graus dos constructos.</p></div>
+</div>
+<div class="demo" style="margin-top:14px">
+<b>✅ Checklist (clique para marcar)</b>
+<ul class="chk" id="chk">
+<li class="done"><span>☑</span>Definir a ideia do jogo e a protagonista</li>
+<li class="done"><span>☑</span>Definir o quadrado e a medida 20 px = 1 m</li>
+<li><span>☐</span>Falar com a professora sobre os conteúdos</li>
+<li><span>☐</span>Definir retângulo, triângulo e círculo</li>
+<li><span>☐</span>Definir o gasto de Energia Mental</li>
+<li><span>☐</span>Criar o primeiro sábio e a história da 1ª parte</li>
+<li><span>☐</span>Entregar uma versão Beta/DEMO</li>
+</ul>
+</div>
+</section>
+</main>
+<footer>SoulVetor · documento vivo, atualizado conforme o projeto evolui.<br><button class="alt" onclick="tg()" style="margin-top:10px">🌗 Alternar tema</button></footer>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+// nav highlight
+var secs=[].slice.call(document.querySelectorAll('section'));
+addEventListener('scroll',function(){var cur='';secs.forEach(function(s){if(s.getBoundingClientRect().top<120)cur=s.id});
+document.querySelectorAll('#nav a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)})});
+// flow
+document.querySelectorAll('.step').forEach(function(s){s.onclick=function(){s.classList.toggle('open')}});
+// checklist
+document.querySelectorAll('#chk li').forEach(function(l){l.onclick=function(){l.classList.toggle('done');l.firstChild.textContent=l.classList.contains('done')?'☑':'☐'}});
+// theme
+function tg(){var r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'}
+// sage
+var tries=0;
+function say(t,o){$('sbub').innerHTML=t;$('sopt').innerHTML=o.map(function(x){return '<button '+(x[2]?'class="alt" ':'')+'onclick="'+x[1]+'">'+x[0]+'</button>'}).join('')}
+function sage(n){
+if(n==0)say('🧙 “Olá, jovemzinha, você não é daqui, não é? Se chegou até aqui sozinha, deve saber um pouco da arte dos algarismos. Aceita um desafio?”',[['Aceitar','sage(1)'],['Recusar','sage(9)',1]]);
+if(n==9)say('🧙 “Já está pronta para o desafio?” <small>(aperte E perto do sábio para voltar)</small>',[['Apertar E','sage(0)']]);
+if(n==1)say('📜 <b>Fórmula do sábio:</b> área do quadrado, <span class="f">A = L²</span>. Multiplique o lado por ele mesmo.',[['Entendi','sage(2)']]);
+if(n==2){tries=0;q()}
+if(n==3){tries++;if(tries<2)q('Ops, errou! Você ainda tem 1 chance.');else say('🧙 “Tente outra vez mais tarde.” <small>(cooldown de 1 a 3 minutos)</small>',[['Recomeçar','sage(0)',1]])}
+if(n==4)say('🎉 <b>Acertou!</b> Prêmio: constructo <b>Quadrado</b> (+ moedas e experiência). O sábio explica o uso e um gif mostra como aplicá-lo.',[['Voltar ao início','sage(0)',1]])}
+function q(msg){say((msg?'❌ '+msg+'<br>':'')+'<b>Desafio:</b> um quadrado tem lado L = 3 m. Qual é a sua área?',[['A) 6 m²','sage(3)'],['B) 9 m²','sage(4)'],['C) 12 m²','sage(3)']])}
+// shapes
+var S={
+q:{f:'A = L²',d:'Quadrado: um único lado define a área.',p:[['L',1,5,3]],a:function(v){return v[0]*v[0]},g:function(v,k){var s=v[0]*k;return '<rect x="'+(110-s/2)+'" y="'+(120-s)+'" width="'+s+'" height="'+s+'"/>'}},
+r:{f:'A = b · h',d:'Retângulo: base vezes altura.',p:[['b',1,5,4],['h',1,5,2]],a:function(v){return v[0]*v[1]},g:function(v,k){var w=v[0]*k,h=v[1]*k;return '<rect x="'+(110-w/2)+'" y="'+(120-h)+'" width="'+w+'" height="'+h+'"/>'}},
+t:{f:'A = (b · h) / 2',d:'Triângulo: metade do retângulo de mesma base e altura.',p:[['b',1,5,4],['h',1,5,3]],a:function(v){return v[0]*v[1]/2},g:function(v,k){var w=v[0]*k,h=v[1]*k;return '<polygon points="'+(110-w/2)+',120 '+(110+w/2)+',120 '+(110-w/2)+','+(120-h)+'"/>'}},
+c:{f:'A = π · r²',d:'Círculo: o raio define a área.',p:[['r',1,5,2]],a:function(v){return Math.PI*v[0]*v[0]},g:function(v,k){var r=v[0]*k/2;return '<circle cx="110" cy="'+(120-r)+'" r="'+r+'"/>'}}};
+var cur='q',vals={};
+function shape(k){cur=k;var s=S[k];vals=s.p.map(function(p){return p[3]});
+document.querySelectorAll('#ctabs button').forEach(function(b,i){b.classList.toggle('on','qrtc'[i]===k)});
+$('sf').textContent=s.f;$('sd').textContent=s.d;
+$('sl').innerHTML=s.p.map(function(p,i){return '<label>'+p[0]+' = <b id="v'+i+'">'+p[3]+'</b> m<input type="range" min="'+p[1]+'" max="'+p[2]+'" value="'+p[3]+'" oninput="upd('+i+',this.value)"></label>'}).join('');draw()}
+function upd(i,x){vals[i]=+x;$('v'+i).textContent=x;draw()}
+function draw(){var s=S[cur],a=s.a(vals);$('sr').textContent='Área = '+(Math.round(a*100)/100).toString().replace('.',',')+' m²';
+$('sv').innerHTML='<g fill="var(--c)" fill-opacity=".35" stroke="var(--c)" stroke-width="3">'+s.g(vals,20)+'</g>'}
+shape('q');
+// scale
+$('mr').oninput=function(){var l=+this.value;$('ml').textContent=l;$('mp').textContent=l*20;$('msq').style.width=$('msq').style.height=(l*20*2)+'px'};
+$('mr').oninput.call($('mr'));
+// energy
+function em(t){var b=$('eb');b.style.width='30%';setTimeout(function(){b.style.width='100%'},60);$('et').textContent='Opção em avaliação: '+t+'. A velocidade e as regras ainda serão definidas.'}
+</script>
+</body>
+</html>
